@@ -5,6 +5,7 @@ import './js/lightbox';
 import ImgApiService from './js/apiService';
 import LoadMoreBtn from './js/components/load-more-btn';
 
+let scrollingTo = 0;
 const refs = {
   searchForm: document.querySelector('.js-search-form'),
   galleryContainer: document.querySelector('.js-gallery-container'),
@@ -35,7 +36,7 @@ function scrollToUp () {
 
 function onSearch(e) {
   e.preventDefault();
-
+  scrollingTo = 0;
   imgApiService.query = e.currentTarget.elements.query.value;
   
   if (imgApiService.query === '') {
@@ -51,7 +52,6 @@ function onSearch(e) {
 
 function onloadMoreBtn(e) {
   fetchImages()
-
 }
 
 function fetchImages() {  
@@ -71,12 +71,14 @@ function clearImagesContainer() {
   refs.galleryContainer.innerHTML = '';
 }
 
+
+// const totalScrollHeight = document.body.clientHeight;
+// console.log(totalScrollHeight);
 function windowsScrolling() {
-  const totalScrollHeight = document.body.clientHeight;
-  
     window.scrollTo({
-    top: totalScrollHeight,
+    top: scrollingTo,
     behavior: 'smooth',
   });
+  scrollingTo = refs.galleryContainer.lastElementChild.offsetTop + 256;  
   }
 

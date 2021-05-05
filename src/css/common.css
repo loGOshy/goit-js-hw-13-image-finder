@@ -22,7 +22,7 @@ img {
   display: flex;
   justify-content: center;
   padding: 8px;
-  /* margin-bottom: 24px; */
+  
 }
 .stats {
   justify-content: space-between;
